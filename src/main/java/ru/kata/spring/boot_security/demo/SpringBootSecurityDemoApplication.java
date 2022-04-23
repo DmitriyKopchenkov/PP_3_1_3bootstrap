@@ -23,12 +23,9 @@ public class SpringBootSecurityDemoApplication {
 			UserService userService = context.getBean(UserService.class);
 			RoleService roleService = context.getBean(RoleService.class);
 
-			User user1 = new User("admin", "admin", 25, "admin@mail.ru"
-					, "admin");
-			User user2 = new User("user", "user", 33, "user@mail.ru"
-					, "user");
-			User user3 = new User("ivan", "ivan", 40, "ivan@mail.ru"
-					, "ivan");
+			User user1 = new User("admin", "admin", 25, "admin@mail.ru", "admin");
+			User user2 = new User("user", "user", 33, "user@mail.ru", "user");
+			User user3 = new User("ivan", "ivan", 40, "ivan@mail.ru", "ivan");
 
 			Role roleAdmin = new Role("ROLE_ADMIN");
 			Role roleUser = new Role("ROLE_USER");
