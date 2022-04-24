@@ -15,14 +15,16 @@
             <th>Id</th>
             <th>Имя</th>
             <th>Фамилия</th>
+            <th>Возраст</th>
             <th>Электронная почта</th>
             <th>Роль</th>
 
         </tr>
         <tr>
-            <td th:href="@{}" th:text="${user.getId()}">Id</td>
+            <td th:text="${user.getId()}">Id</td>
             <td th:text="${user.getName()}">Имя</td>
             <td th:text="${user.getLastName()}">Фамилия</td>
+            <td th:text="${user.getAge()}">Возраст</td>
             <td th:text="${user.getEmail()}">Почтовый ящик</td>
             <td th:text="${user.getRoles()}">Роль</td>
         </tr>
