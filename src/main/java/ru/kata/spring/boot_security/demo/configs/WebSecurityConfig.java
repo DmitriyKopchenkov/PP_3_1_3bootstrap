@@ -51,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception { // конфиги в которых указывается доступы пользователей
         http
+                .cors().disable()
                 .csrf().disable() //  защита от CSRF-атак
                 .authorizeRequests() //авторизацуем запрос
                 .antMatchers("/login", "/").permitAll()
