@@ -31,7 +31,7 @@ public class AdminController {
 
     @GetMapping("users")
     public String printUsers(Model model) {
-        model.addAttribute("userList", userService.listUsers());
+        model.addAttribute("userSet", userService.listUsers());
         return "all_users";
     }
 
@@ -46,7 +46,7 @@ public class AdminController {
     @PostMapping(value = "users/add")
     public String createNewUser(@ModelAttribute("user") User user
             , @RequestParam(value = "roles") String[] roles) {
-        user.setRoles(roleService.getListOfRoles(roles));
+        user.setRoles(roleService.getSetOfRoles(roles));
         userService.addUser(user);
         return "redirect:/admin/users";
     }
@@ -61,7 +61,9 @@ public class AdminController {
     }
 
     @PatchMapping("users/{id}/edit")
-    public String update(@ModelAttribute("user") User user) {
+    public String update(@ModelAttribute("user") User user
+            , @RequestParam(value = "roles") String[] roles) {
+        user.setRoles(roleService.getSetOfRoles(roles));
         userService.updateUser(user);
         return "redirect:/admin/users";
     }

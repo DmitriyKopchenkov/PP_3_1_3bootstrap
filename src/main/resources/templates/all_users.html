@@ -21,7 +21,7 @@
             <th>Роль</th>
         </tr>
 
-        <tr th:each="user : ${userList}">
+        <tr th:each="user : ${userSet}">
             <td th:text="${user.getId()}">Id</td>
             <td th:text="${user.getName()}">Имя</td>
             <td th:text="${user.getLastName()}">Фамилия</td>
