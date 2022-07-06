@@ -17,7 +17,7 @@ import java.util.List;
 @Transactional
 public class UserServiceImpl implements UserService, UserDetailsService {
 //заинжетил модификатор доступа BCryptPasswordEncoder
-    public BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
+    private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
     private final UserDao userDao;
 
     @Autowired
