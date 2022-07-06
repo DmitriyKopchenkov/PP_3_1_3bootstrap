@@ -10,5 +10,7 @@ public interface RoleService {
     Set<Role> getSetOfRoles(String[] roleNames);
     void add(Role role);
     void edit(Role role);
-    Role getById(int id);
+
+    //изменён на обёртку в связи с последнем замечанием в 2.3.1
+    Role getById(Long id);
 }

@@ -39,16 +39,19 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     public void add(Role role) {
+
         entityManager.persist(role);
     }
 
     @Override
     public void edit(Role role) {
+
         entityManager.merge(role);
     }
 
     @Override
-    public Role getById(int id) {
+    public Role getById(Long id) {
+
         return entityManager.find(Role.class, id);
     }
 }

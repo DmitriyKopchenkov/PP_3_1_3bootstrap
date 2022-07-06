@@ -7,7 +7,6 @@ import ru.kata.spring.boot_security.demo.dao.RoleDao;
 import ru.kata.spring.boot_security.demo.model.Role;
 
 
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -18,37 +17,44 @@ public class RoleServiceImpl implements RoleService {
 
     @Autowired
     public RoleServiceImpl(RoleDao roleDao) {
+
         this.roleDao = roleDao;
     }
 
     @Override
     public Set<Role> getAllRoles() {
+
         return roleDao.getAllRoles();
     }
 
     @Override
 
     public Role getRoleByName(String name) {
+
         return roleDao.getRoleByName(name);
     }
 
     @Override
     public Set<Role> getSetOfRoles(String[] roleNames) {
-        return roleDao.getSetOfRoles(roleNames);
+        return
+                roleDao.getSetOfRoles(roleNames);
     }
 
     @Override
     public void add(Role role) {
+
         roleDao.add(role);
     }
 
     @Override
     public void edit(Role role) {
+
         roleDao.edit(role);
     }
-
+    //изменён на обёртку в связи с последнем замечанием в 2.3.1
     @Override
-    public Role getById(int id) {
+    public Role getById(Long id) {
+
         return roleDao.getById(id);
     }
 }

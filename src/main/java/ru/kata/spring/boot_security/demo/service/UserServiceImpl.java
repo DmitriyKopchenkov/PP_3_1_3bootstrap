@@ -16,17 +16,19 @@ import java.util.List;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService, UserDetailsService {
-
-    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
+//заинжетил модификатор доступа BCryptPasswordEncoder
+    public BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
     private final UserDao userDao;
 
     @Autowired
     public UserServiceImpl(UserDao userDao) {
+
         this.userDao = userDao;
     }
-
-    @Override
+    //Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public User getUserByEmail(String email) {
+
         return userDao.getUserByEmail(email);
     }
 
@@ -35,24 +37,29 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userDao.addUser(user);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
     }
+    //изменён на обёртку в связи с последнем замечанием в 2.3.1
+    //Transactional(readOnly = true)
+    @Transactional(readOnly = true)
+    public User getUserById(Long id) {
 
-    @Override
-    public User getUserById(long id) {
         return userDao.getUserById(id);
     }
 
     @Override
     public void updateUser(User user) {
+
         userDao.updateUser(user);
     }
 
     @Override
-    public void removeUserById(long id) {
+    public void removeUserById(Long id) {
+
         userDao.removeUserById(id);
     }
 
     @Override
     public List<User> listUsers() {
+
         return userDao.listUsers();
     }
 

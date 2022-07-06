@@ -9,8 +9,12 @@ import java.util.List;
 public interface UserDao {
     User getUserByEmail(String email);
     void addUser(User user);
-    User getUserById(long id);
+
+    // исправлено замечание с задания 2.3.1 заменить примитивный тип на обёртку
+    User getUserById(Long id);
     void updateUser(User user);
-    void removeUserById(long id);
+
+    // исправлено замечание с задания 2.3.1 заменить примитивный тип на обёртку
+    void removeUserById(Long id);
     List<User> listUsers();
 }
