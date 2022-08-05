@@ -13,11 +13,15 @@ import ru.kata.spring.boot_security.demo.model.User;
 import java.util.List;
 
 
+
 @Service
 @Transactional
 public class UserServiceImpl implements UserService, UserDetailsService {
 //заинжетил модификатор доступа BCryptPasswordEncoder
-    private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
+// так же убрал конструктор создания new и заавтоваирил.
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     private final UserDao userDao;
 
     @Autowired
@@ -31,8 +35,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         return userDao.getUserByEmail(email);
     }
-
+    //Transactional(readOnly = true)
     @Override
+    @Transactional(readOnly = true)
     public void addUser(User user) {
         userDao.addUser(user);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
