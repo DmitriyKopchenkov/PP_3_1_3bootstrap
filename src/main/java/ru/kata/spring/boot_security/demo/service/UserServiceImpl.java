@@ -37,7 +37,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
     //Transactional(readOnly = true)
     @Override
-    @Transactional(readOnly = true)
     public void addUser(User user) {
         userDao.addUser(user);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -51,24 +50,28 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public void updateUser(User user) {
 
         userDao.updateUser(user);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public void removeUserById(Long id) {
 
         userDao.removeUserById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> listUsers() {
 
         return userDao.listUsers();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userDao.getUserByEmail(email);
     }
