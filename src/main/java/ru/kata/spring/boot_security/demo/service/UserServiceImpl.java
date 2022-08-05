@@ -19,14 +19,14 @@ import java.util.List;
 public class UserServiceImpl implements UserService, UserDetailsService {
 //заинжетил модификатор доступа BCryptPasswordEncoder
 // так же убрал конструктор создания new и заавтоваирил.
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     private final UserDao userDao;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserDao userDao) {
-
+    public UserServiceImpl(UserDao userDao, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userDao = userDao;
     }
     //Transactional(readOnly = true)
