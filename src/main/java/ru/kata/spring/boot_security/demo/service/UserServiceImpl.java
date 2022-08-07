@@ -21,15 +21,15 @@ import java.util.List;
 public class UserServiceImpl implements UserService, UserDetailsService {
 //заинжетил модификатор доступа BCryptPasswordEncoder
 // так же убрал конструктор создания new и заавтоваирил.
+    private final UserDao userDao;
     @Autowired
-    private UserDao userDao;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(12);
+    }
 
     @Autowired
-    public UserServiceImpl(UserDao userDao, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
-        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void addUser(User user) {
         userDao.addUser(user);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        passwordEncoder();
     }
     //изменён на обёртку в связи с последнем замечанием в 2.3.1
     //Transactional(readOnly = true)
