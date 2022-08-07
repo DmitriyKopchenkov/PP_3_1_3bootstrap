@@ -20,24 +20,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
     private final UserDetailsService userDetailsService;
 
+
     // SuccessHandler это обработчик успешной аутентификации
     // UserDetails - минимальная информация о пользователях (логин, пароль и тд)
 
     @Autowired
-    public WebSecurityConfig(SuccessUserHandler successUserHandler
-            , @Qualifier("userServiceImpl") UserDetailsService userDetailsService) {
+    public WebSecurityConfig(SuccessUserHandler successUserHandler,
+                             @Qualifier("userServiceImpl") UserDetailsService userDetailsService) {
         this.successUserHandler = successUserHandler;
         this.userDetailsService = userDetailsService;
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(daoAuthenticationProvider());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
-    protected BCryptPasswordEncoder bCryptPasswordEncoder() { // энкодер паролей
-
+    protected PasswordEncoder passwordEncoder() { // энкодер паролей
         return new BCryptPasswordEncoder(12);
     }
 
@@ -45,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected DaoAuthenticationProvider daoAuthenticationProvider() {
         // сверяет userDetailsService с поступившим юзером
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
         return daoAuthenticationProvider;
     }
@@ -53,7 +53,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception { // конфиги в которых указывается доступы пользователей
         http
-                .cors().disable()
                 .csrf().disable() //  защита от CSRF-атак( типо подставного сайта где злоумышленник его использует и заставляет
                 // от имени пользователя отправлять пароли, деньги со счёта на счёт и т.п
                 .authorizeRequests() //авторизацуем запрос
@@ -69,3 +68,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().permitAll(); // настройка логаута
     }
 }
+

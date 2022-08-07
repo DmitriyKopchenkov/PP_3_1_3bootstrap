@@ -12,7 +12,7 @@ public interface UserDao {
 
     // исправлено замечание с задания 2.3.1 заменить примитивный тип на обёртку
     User getUserById(Long id);
-    void updateUser(User user);
+    User updateUser(User user);
 
     // исправлено замечание с задания 2.3.1 заменить примитивный тип на обёртку
     void removeUserById(Long id);
